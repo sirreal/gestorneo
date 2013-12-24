@@ -11,9 +11,9 @@
 		<link href="<?=base_url();?>static/css/prettyCheckable.css" type="text/css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="<?=base_url();?>static/css/default.css" />
 
-		<script src="<?=base_url();?>static/javascript/jquery.min.js"></script>
-		<script src="<?=base_url();?>static/javascript/jquery-migrate-1.0.0.js"></script>
-		<script src="<?=base_url();?>static/javascript/jquery-ui-1.10.0.custom.min.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+
 		<script src="<?=base_url();?>static/javascript/jquery.cookie.js"></script>
 		<script src="<?=base_url();?>static/javascript/jquery.ba-hashchange.min.js"></script>
 		<script src="<?=base_url();?>static/javascript/jquery.tablesorter.min.js"></script>
