@@ -42,11 +42,11 @@ RUN apt-get install -y apache2 libapache2-mod-php5
 RUN apt-get install -y mysql-client mysql-server php5-mysqlnd
 
 ## APP
-RUN rm -rf /var/www/* /var/www/.*
+RUN rm -rf /var/www/*
 ADD app /var/www
 
 ### APP DB
-RUN mysqld & sleep 2 && mysql -uroot < /var/www/application/sql/gestorneo.sql
+RUN mysqld & sleep 2 && mysql -uroot "CREATE DATABASE `gestorneo`;" && mysql -uroot gestorneo < /var/www/application/sql/gestorneo.sql
 
 # RESET
 
