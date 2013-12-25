@@ -40,16 +40,18 @@ RUN apt-get install -y apache2 libapache2-mod-php5
 
 ## MYSQL
 RUN apt-get install -y mysql-client mysql-server php5-mysqlnd
-RUN mysqld & sleep 2 && mysqladmin create mydb
 
 ## APP
-RUN rm -rf /var/www/*
+RUN rm -rf /var/www/* /var/www/.*
 ADD app /var/www
+
+### APP DB
+RUN mysqld & sleep 2 && mysql -uroot < /var/www/application/sql/gestorneo.sql
 
 # RESET
 
 #ENV DEBIAN_FRONTEND dialog
 
 ## CONFIG
-ENV RUNNABLE_USER_DIR /var/www
-ENV RUNNABLE_SERVICE_CMDS /etc/init.d/apache2 restart; mysqld
+#ENV RUNNABLE_USER_DIR /var/www
+#ENV RUNNABLE_SERVICE_CMDS /etc/init.d/apache2 restart; mysqld
