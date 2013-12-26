@@ -1,6 +1,6 @@
 # runnable base
 FROM stackbrew/ubuntu:saucy
-
+MAINTAINER Jon Surrell <jon@surrell.es>
 # REPOS
 RUN apt-get update
 RUN apt-get upgrade -y
@@ -46,7 +46,12 @@ RUN rm -rf /var/www/*
 ADD app /var/www
 
 ### APP DB
-RUN mysqld & sleep 2 && mysql -uroot "CREATE DATABASE `gestorneo`;" && mysql -uroot gestorneo < /var/www/application/sql/gestorneo.sql
+RUN mysqld & sleep 2 && echo "CREATE DATABASE IF NOT EXISTS gestorneo" | mysql -uroot
+RUN mysqld & sleep 2 && mysql -uroot gestorneo < /var/www/application/sql/gestorneo.sql
+
+EXPOSE 80
+
+ENTRYPOINT ["/usr/sbin/apache2"]
 
 # RESET
 
