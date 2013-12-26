@@ -46,19 +46,23 @@ RUN rm -rf /var/www/*
 ADD app /var/www
 
 ### APP DB
-RUN service mysql   start
-RUN service apache2 start
+#RUN service mysql   start
+#RUN service apache2 start
 
-RUN mysqladmin create gestorneo
-RUN mysql -uroot gestorneo < /var/www/application/sql/gestorneo.sql
+RUN mysqld & sleep 2 && mysqladmin create gestorneo
+RUN mysqld & sleep 2 && mysql -uroot gestorneo < /var/www/application/sql/gestorneo.sql
 
 EXPOSE 80
-#ENTRYPOINT ["/usr/sbin/apache2"]
 
-# RESET
+RUN service apache2 start
+RUN a2enmod rewrite
 
-#ENV DEBIAN_FRONTEND dialog
+ADD gestorneo.conf /etc/apache2/sites-available/
+RUN a2dissite 000-default
+RUN a2ensite  gestorneo
 
-## CONFIG
-#ENV RUNNABLE_USER_DIR /var/www
-#ENV RUNNABLE_SERVICE_CMDS /etc/init.d/apache2 restart; mysqld
+
+
+
+#ENTRYPOINT ["/bin/bash"]
+ENTRYPOINT ["/bin/bash -c service mysql start", "service apache2 start", "tail -f /var/log/apache2/error.log"]
